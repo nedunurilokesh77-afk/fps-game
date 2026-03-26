@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Multiplayer FPS</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div id="menu" class="overlay visible">
+      <div class="panel">
+        <h1>Multiplayer FPS</h1>
+        <p class="subtitle">Enter a lobby code and select game mode to play with friends.</p>
+        <input id="username" type="text" placeholder="Username" maxlength="18" />
+        <input id="lobby" type="text" placeholder="Lobby Code (e.g. alpha123)" maxlength="20" />
+        
+        <div class="game-mode-selection">
+          <label>
+            <input type="radio" name="gameMode" value="ffa" checked>
+            <span>Free For All</span>
+          </label>
+          <label>
+            <input type="radio" name="gameMode" value="tdm">
+            <span>Team Deathmatch</span>
+          </label>
+        </div>
+        
+        <button id="joinGameBtn">Join Game</button>
+        <p class="hint">Share the same lobby code to join together.</p>
+      </div>
+    </div>
+
+    <div id="hud" class="overlay hidden">
+      <div id="top-left-hud">
+        <div id="health-bar-container">
+          <div id="health-bar-fill"></div>
+          <span id="health-text">100</span>
+        </div>
+        <div id="ammo-container">
+          <span id="weapon-name">Rifle</span>
+          <span id="ammo-text">30 / ∞</span>
+          <div id="reload-indicator">R</div>
+        </div>
+        <div id="team-indicator" class="hidden">
+          <span id="team-text">Team A</span>
+        </div>
+      </div>
+
+      <div id="weapon-switcher">
+        <div class="weapon-slot active" data-weapon="rifle">
+          <div class="key">1</div>
+          <div class="name">Rifle</div>
+        </div>
+        <div class="weapon-slot" data-weapon="sniper">
+          <div class="key">2</div>
+          <div class="name">Sniper</div>
+        </div>
+        <div class="weapon-slot" data-weapon="pistol">
+          <div class="key">3</div>
+          <div class="name">Pistol</div>
+        </div>
+      </div>
+
+      <div id="scoreboard" class="panel">
+        <h2>Scoreboard</h2>
+        <div id="scoreboard-content">
+          <div class="score-section">
+            <h3>Players</h3>
+            <ul id="scoreboard-list"></ul>
+          </div>
+          <div id="team-scores" class="score-section hidden">
+            <h3>Teams</h3>
+            <div id="team-a-score">Team A: 0</div>
+            <div id="team-b-score">Team B: 0</div>
+          </div>
+        </div>
+      </div>
+
+      <div id="kill-feed" class="panel small"></div>
+
+      <div id="crosshair"></div>
+      <div id="hit-marker"></div>
+    </div>
+
+    <canvas id="game-canvas"></canvas>
+
+<script src="/socket.io/socket.io.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.128/examples/js/loaders/GLTFLoader.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.128/examples/js/loaders/RGBELoader.js"></script>
+<script type="importmap">
+{
+  "imports": {
+    "three": "https://cdn.jsdelivr.net/npm/three@0.128/build/three.module.js",
+    "three/examples/jsm/": "https://cdn.jsdelivr.net/npm/three@0.128/examples/jsm/"
+  }
+}
+</script>
+<script type="module">
+import { PointerLockControls } from 'three/examples/jsm/controls/PointerLockControls.js';
+window.PointerLockControls = PointerLockControls;
+</script>
+<script src="game.js"></script>
+<script src="ui.js"></script>
+    
+  </body>
+</html>
